@@ -13,16 +13,16 @@ app.use(bodyParser.json())
 app.use(fileUpload());
 app.use(express.static(__dirname + '/uploadImages'));
 
-// var sql = mysql.createConnection({
-//     host: "sql12.freesqldatabase.com",
-//     user: "sql12393481",
-//     password: "zfl1FvP5LA",
-//     database: 'sql12393481'
-// });
+var sql = mysql.createConnection({
+    host: "localhost",
+    user: "mamtha397",
+    password: "Mamatha@1",
+    database: 'login_mamtha'
+});
 
-// sql.connect(function(err) {
-//     if (err) throw err;
-// });
+sql.connect(function(err) {
+    if (err) throw err;
+});
 
 // Show HTML login
 app.get('/', function(req, res) {
@@ -34,7 +34,7 @@ app.post('/login', function(req, res) {
     let mykey = crypto.createCipher('aes-128-cbc', 'mamatha123');
     console.log(req.body.email);
     const email = req.body.email;
-    const password = req.body.password;
+    const password = req.body.paw;
 
 
     let passCrypto = mykey.update(`${password}`, 'utf8', 'hex')
