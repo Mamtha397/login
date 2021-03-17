@@ -24,16 +24,15 @@ app.use(express.static(__dirname + '/uploadImages'));
 //     if (err) throw err;
 // });
 
-//home
-// Show HTML show_product_v2
+// Show HTML login
 app.get('/', function(req, res) {
-    res.sendFile(__dirname + "/view/" + "show_product_v2.html");
+    res.sendFile(__dirname + "/view/" + "login.html");
 })
 
 //login
 app.post('/login', function(req, res) {
     let mykey = crypto.createCipher('aes-128-cbc', 'mamatha123');
-    const name = req.body.name;
+    console.log(req.body.email);
     const email = req.body.email;
     const password = req.body.password;
 
@@ -55,10 +54,9 @@ app.post('/login', function(req, res) {
                 email: email,
                 result: result,
                 id:result[0].id,
-                name:name
             })
         } else {
-            const insertQuery = `INSERT INTO User (name, email, password) VALUES ('${name}', '${email}', '${passCrypto}');`;
+            const insertQuery = `INSERT INTO User (email, password) VALUES ( '${email}', '${passCrypto}');`;
 
             sql.query(insertQuery, function(err, resultInserted) {
                 if (err) throw err;
@@ -68,7 +66,6 @@ app.post('/login', function(req, res) {
                     email: email,
                     result: resultInserted, 
                     id:resultInserted.insertId,
-                    name:name
                 })
             });
         }
@@ -76,5 +73,5 @@ app.post('/login', function(req, res) {
 })
 
 app.listen(port, function() {
-    console.log("APP is running on 8081")
+    console.log("APP is running on 3000")
 })
